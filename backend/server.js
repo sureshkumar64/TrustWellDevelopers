@@ -10,7 +10,8 @@ app.use(cors([
     "origin": ["http://localhost:5173","https://trust-well-developers.vercel.app"],
     "method": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     "maxAgeSeconds": 3600,
-    "responseHeader": ["Content-Type", "Authorization"]
+    "responseHeader": ["Content-Type", "Authorization"],
+    "credentials": true
   }
 ]));
 const PORT = process.env.PORT || 5000;
