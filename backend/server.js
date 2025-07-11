@@ -5,15 +5,25 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 
 dotenv.config();
-app.use(cors([
-  {
-    "origin": ["http://localhost:5173","https://trust-well-developers.vercel.app"],
-    "method": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    "maxAgeSeconds": 3600,
-    "responseHeader": ["Content-Type", "Authorization"],
-    "credentials": true
-  }
-]));
+import cors from 'cors';
+
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://trust-well-developers.vercel.app',
+  'https://www.trust-well-developers.vercel.app'
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
 const PORT = process.env.PORT || 5000;
 
 connectDB()
