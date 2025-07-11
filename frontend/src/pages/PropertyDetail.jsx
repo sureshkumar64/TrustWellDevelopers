@@ -4,6 +4,12 @@ import axios from 'axios';
 import { MapPin, Home, Layers, Building, BadgeCheck, Ruler } from 'lucide-react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
+
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || '/api'
+});
+
+
 const PropertyDetail = () => {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
@@ -11,13 +17,13 @@ const PropertyDetail = () => {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    axios.get(`/api/properties/${id}`).then((res) => setProperty(res.data));
+    api.get(`/api/properties/${id}`).then((res) => setProperty(res.data));
   }, [id]);
 
   const handleLeadSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/api/leads/contact', {
+      await api.post('/api/leads/contact', {
         name: form.name,
         phone: form.phone,
         message: form.message || 'Interested in this property',

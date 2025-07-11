@@ -4,6 +4,11 @@ import { storage } from '../firebase/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 
+
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || '/api'
+});
+
 const UserAddProperty = () => {
   const [form, setForm] = useState({
     title: '',
@@ -92,7 +97,7 @@ const UserAddProperty = () => {
               propertyData: payload
             };
 
-      await axios.post(endpoint, requestData, {
+      await api.post(endpoint, requestData, {
         headers: { Authorization: `Bearer ${token}` }
       });
 

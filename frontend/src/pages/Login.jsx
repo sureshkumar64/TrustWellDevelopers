@@ -3,6 +3,11 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { auth } from '../firebase/firebase';
 import axios from 'axios';
 
+
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || '/api'
+});
+
 const Login = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -106,7 +111,7 @@ const Login = () => {
       const result = await window.confirmationResult.confirm(fullOtp);
       const token = await result.user.getIdToken();
 
-      const res = await axios.post('/api/auth/login', { token, name });
+      const res = await api.post('/api/auth/login', { token, name });
 
       // ✅ Save user and loginTime for 12hr logout mechanism
       localStorage.setItem('user', JSON.stringify(res.data));

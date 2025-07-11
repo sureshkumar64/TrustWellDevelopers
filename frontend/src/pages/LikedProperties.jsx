@@ -3,6 +3,11 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import PropertyCard from '../components/PropertyCard';
 
+
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || '/api'
+}); 
+
 const LikedProperties = () => {
   const [liked, setLiked] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,7 +16,7 @@ const LikedProperties = () => {
   useEffect(() => {
     const fetchLiked = async () => {
       try {
-        const res = await axios.get('/api/auth/liked', {
+        const res = await api.get('/api/auth/liked', {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },

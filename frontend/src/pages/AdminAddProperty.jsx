@@ -4,6 +4,11 @@ import { storage } from '../firebase/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 
+
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || '/api'
+}); 
+
 const UserAddProperty = () => {
   const [form, setForm] = useState({
     title: '',
@@ -78,7 +83,7 @@ const UserAddProperty = () => {
       const uploadedImages = await uploadImagesToFirebase();
       const payload = { ...form, images: uploadedImages };
       const endpoint = isAdmin ? '/api/properties' : '/api/leads/property';
-      await axios.post(endpoint, payload, {
+      await api.post(endpoint, payload, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSubmitted(true);

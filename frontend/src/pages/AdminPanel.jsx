@@ -19,8 +19,8 @@ const AdminPanel = () => {
     try {
       const headers = { headers: { Authorization: `Bearer ${token}` } };
       const [propRes, leadRes] = await Promise.all([
-        axios.get('/api/properties/admin', headers),
-        axios.get('/api/leads', headers)
+        api.get('/api/properties/admin', headers),
+        api.get('/api/leads', headers)
       ]);
       setProperties(Array.isArray(propRes.data) ? propRes.data : []);
       setLeads(Array.isArray(leadRes.data) ? leadRes.data : []);
@@ -32,7 +32,7 @@ const AdminPanel = () => {
   const deleteProperty = async (id) => {
     if (!window.confirm('Are you sure you want to delete this property?')) return;
     try {
-      await axios.delete(`/api/properties/${id}`, {
+      await api.delete(`/api/properties/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchAll();
@@ -44,7 +44,7 @@ const AdminPanel = () => {
   const deleteLead = async (id) => {
     if (!window.confirm('Are you sure you want to delete this lead?')) return;
     try {
-      await axios.delete(`/api/leads/${id}`, {
+      await api.delete(`/api/leads/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchAll();

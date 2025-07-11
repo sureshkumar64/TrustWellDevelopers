@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || '/api'
+});
+
 const EditProperty = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -23,7 +27,7 @@ const EditProperty = () => {
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const { data } = await axios.get(`/api/properties/${id}`, {
+        const { data } = await api.get(`/api/properties/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setForm({
@@ -53,7 +57,7 @@ const EditProperty = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`/api/properties/${id}`, form, {
+      await api.put(`/api/properties/${id}`, form, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert('✅ Property updated successfully!');

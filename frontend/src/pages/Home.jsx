@@ -8,6 +8,10 @@ import 'slick-carousel/slick/slick-theme.css';
 import { useNavigate } from 'react-router-dom';
 import { ShieldCheck, Scale, FileText } from 'lucide-react'; // icons
 
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || '/api'
+});
+
 const Home = () => {
   const navigate = useNavigate();
   const [properties, setProperties] = useState([]);
@@ -26,7 +30,7 @@ const Home = () => {
   const fetchProperties = async () => {
     try {
       const query = new URLSearchParams(filters).toString();
-      const res = await axios.get(`/api/properties?${query}`);
+      const res = await api.get(`/api/properties?${query}`);
       setProperties(res.data);
     } catch (err) {
       console.error('Failed to fetch properties:', err);

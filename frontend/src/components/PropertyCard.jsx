@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Heart, HeartIcon, Share2 } from 'lucide-react';
+ 
 
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || '/api'
+});
 
 const PropertyCard = ({ property, isAdmin = false, onDelete }) => {
   const navigate = useNavigate();
@@ -13,7 +17,7 @@ const PropertyCard = ({ property, isAdmin = false, onDelete }) => {
   const checkIfLiked = async () => {
     try {
       if (!user) return;
-      const res = await axios.get(`/api/auth/liked`, {
+      const res = await api.get(`/api/auth/liked`, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       const likedIds = res.data.map(p => p._id);
@@ -37,12 +41,12 @@ const PropertyCard = ({ property, isAdmin = false, onDelete }) => {
 
     try {
       if (liked) {
-        await axios.post(`/api/auth/unlike/${property._id}`, {}, {
+        await api.post(`/api/auth/unlike/${property._id}`, {}, {
           headers: { Authorization: `Bearer ${user.token}` }
         });
         setLiked(false);
       } else {
-        await axios.post(`/api/auth/like/${property._id}`, {}, {
+        await api.post(`/api/auth/like/${property._id}`, {}, {
           headers: { Authorization: `Bearer ${user.token}` }
         });
         setLiked(true);
