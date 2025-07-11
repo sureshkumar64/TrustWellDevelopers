@@ -4,14 +4,16 @@ import axios from 'axios';
 import PropertyCard from '../components/PropertyCard';
 
 
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api'
-}); 
+ 
 
 const LikedProperties = () => {
   const [liked, setLiked] = useState([]);
   const [loading, setLoading] = useState(true);
   const user = JSON.parse(localStorage.getItem('user'));
+  
+  const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL
+});
 
   useEffect(() => {
     const fetchLiked = async () => {

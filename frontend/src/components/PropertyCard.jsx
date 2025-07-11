@@ -4,14 +4,16 @@ import axios from 'axios';
 import { Heart, HeartIcon, Share2 } from 'lucide-react';
  
 
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api'
-});
 
 const PropertyCard = ({ property, isAdmin = false, onDelete }) => {
   const navigate = useNavigate();
   const [liked, setLiked] = useState(false);
   const user = JSON.parse(localStorage.getItem('user'));
+  
+  const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL
+});
+
 
   // ✅ Check if this property is liked
   const checkIfLiked = async () => {

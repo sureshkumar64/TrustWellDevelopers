@@ -4,9 +4,7 @@ import { auth } from '../firebase/firebase';
 import axios from 'axios';
 
 
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api'
-});
+
 
 const Login = () => {
   const [name, setName] = useState('');
@@ -19,6 +17,10 @@ const Login = () => {
   const [canResend, setCanResend] = useState(false);
 
   const inputRefs = useRef([]);
+  
+  const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL
+});
 
   useEffect(() => {
     if (!window.recaptchaVerifier) {

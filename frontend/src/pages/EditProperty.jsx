@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api'
-});
+
 
 const EditProperty = () => {
   const { id } = useParams();
@@ -23,6 +21,10 @@ const EditProperty = () => {
     plotArea: '',
     possessionStatus: ''
   });
+
+  const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL
+});
 
   useEffect(() => {
     const fetchProperty = async () => {

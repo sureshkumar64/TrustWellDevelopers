@@ -5,9 +5,7 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 
 
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api'
-}); 
+
 
 const UserAddProperty = () => {
   const [form, setForm] = useState({
@@ -22,6 +20,10 @@ const UserAddProperty = () => {
     possessionStatus: '',
     plotArea: ''
   });
+ 
+  const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL
+}); 
 
   const [images, setImages] = useState([]);
   const [uploading, setUploading] = useState(false);

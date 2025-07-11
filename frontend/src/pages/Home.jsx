@@ -8,9 +8,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { useNavigate } from 'react-router-dom';
 import { ShieldCheck, Scale, FileText } from 'lucide-react'; // icons
 
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api'
-});
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -24,6 +22,10 @@ const Home = () => {
     priceMax: '',
     reraNumber: ''
   });
+  
+  const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL 
+});
 
   const user = JSON.parse(localStorage.getItem('user'));
 

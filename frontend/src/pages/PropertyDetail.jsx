@@ -5,9 +5,7 @@ import { MapPin, Home, Layers, Building, BadgeCheck, Ruler } from 'lucide-react'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api'
-});
+
 
 
 const PropertyDetail = () => {
@@ -15,6 +13,10 @@ const PropertyDetail = () => {
   const [property, setProperty] = useState(null);
   const [form, setForm] = useState({ name: '', phone: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+
+  const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL
+});
 
   useEffect(() => {
     api.get(`/api/properties/${id}`).then((res) => setProperty(res.data));
