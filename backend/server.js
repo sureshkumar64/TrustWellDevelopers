@@ -7,7 +7,7 @@ import cors from 'cors';
 dotenv.config();
 app.use(cors([
   {
-    "origin": ["http://localhost:5173"],
+    "origin": ["http://localhost:5173","https://trust-well-developers.vercel.app"],
     "method": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     "maxAgeSeconds": 3600,
     "responseHeader": ["Content-Type", "Authorization"]
